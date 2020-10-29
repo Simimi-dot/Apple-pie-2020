@@ -361,7 +361,7 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="coorectWordLabel" destination="Idr-8X-Hn4" id="tx6-mC-nSA"/>
+                        <outlet property="correctWordLabel" destination="Idr-8X-Hn4" id="tx6-mC-nSA"/>
                         <outlet property="scoreLabel" destination="8t5-XA-Iff" id="qn4-Ip-1iB"/>
                         <outlet property="treeImageView" destination="Zdd-gF-l5k" id="jVf-a5-uZl"/>
                         <outletCollection property="letterButtons" destination="rLQ-zC-MGX" collectionClass="NSMutableArray" id="w27-DO-ze4"/>
