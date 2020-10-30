@@ -103,16 +103,36 @@ class ViewController: UIViewController {
         "Эр-Рияд",
         "Янгон",
     ]
-    var totalWins = 0
-    var totalLosses = 0
+    var totalWins = 0{
+        didSet{
+            newRound()
+        }
+    }
+    var totalLosses = 0{
+        didSet {
+            newRound()
+        }
+    }
     
     
     
     // MARK: - Methods
+    func enableButtons(_ enable:Bool = true ) {
+        for button in letterButtons{
+            button.isEnabled = enable
+        }
+    }
+    
     func newRound(){
+        guard !listOfWords.isEmpty else {
+            enableButtons(false)
+            updateUI()
+            return
+        }
         let newWord = listOfWords.removeFirst()
         currentGame = Game(word: newWord, incorrectMovesRemaining: incorrectMovesAllowed)
         updateUI()
+        enableButtons()
     }
     
     func updateCorrectWordLabel() {
@@ -122,6 +142,21 @@ class ViewController: UIViewController {
         }
 //        correctWordLabel.text = currentGame.guessedWord
         correctWordLabel.text = displayWord.joined(separator: " ")
+    }
+    
+    func updateState(){
+//        if currentGame.incorrectMovesRemaining == 0 {
+//
+//        }
+        if currentGame.incorrectMovesRemaining < 1 {
+            totalLosses += 1
+        }else if currentGame.guessedWord == currentGame.word{
+            totalWins += 1
+        } else {
+            updateUI()
+        }
+        
+        
     }
     
     func updateUI(){
@@ -147,7 +182,7 @@ class ViewController: UIViewController {
         sender.isEnabled = false
         let letter = sender.title(for: .normal)!
         currentGame.playerGuessed(letter: Character(letter))
-        updateUI()
+        updateState()
     }
     
 }
